@@ -11,13 +11,10 @@ class ClockView extends StatefulWidget {
 class _ClockViewState extends State<ClockView> {
   @override
   void initState() {
-    Timer.periodic(Duration(seconds: 1),(timer){
-      setState(() {
-        
-      });
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {});
     });
     super.initState();
-   
   }
 
   @override
@@ -45,12 +42,16 @@ class ClockPainter extends CustomPainter {
     Offset center = Offset(centerX, centerY);
     double radius = min(centerX, centerY);
 
-    var fillBrush = Paint()..color = Color(0xFF444974);
+    var fillBrush = Paint()
+    // ..color = Color(0xFF444974);
+    ..color = Color(0xFF2D2F41);
+
 
     var outlineBrush = Paint()
-      ..color = Color(0xFFEAECFF)
+      // ..color = Color(0xFFe0e0e0)
+      ..color = Color(0xFF2D2F41)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1;
+      ..strokeWidth = 0.5;
 
     var centerFillBrush = Paint()..color = Color(0xFFEAECFF);
 
@@ -74,6 +75,12 @@ class ClockPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 8;
 
+    var dashBrush = Paint()
+    ..color = Color(0xFFEAECFF)
+    ..style = PaintingStyle.stroke
+    ..strokeCap = StrokeCap.round
+    ..strokeWidth = 2;
+
     canvas.drawCircle(center, radius - 40, fillBrush);
     canvas.drawCircle(center, radius - 40, outlineBrush);
 
@@ -92,6 +99,17 @@ class ClockPainter extends CustomPainter {
     canvas.drawLine(center, Offset(secHandX, secHandY), secHandBrush);
 
     canvas.drawCircle(center, 8, centerFillBrush);
+
+    var outerCircleRadius = radius;
+    var innerCircleRadius = radius - 14;
+    for (double i = 0; i < 360; i += 12) {
+      var x1 = centerX + outerCircleRadius * cos(i * pi / 180);
+      var y1 = centerX + outerCircleRadius * sin(i * pi / 180);
+
+      var x2 = centerX + innerCircleRadius * cos(i * pi / 180);
+      var y2 = centerX + innerCircleRadius * sin(i * pi / 180);
+      canvas.drawLine(Offset(x1, y1), Offset(x2, y2), dashBrush);
+    }
   }
 
   @override
