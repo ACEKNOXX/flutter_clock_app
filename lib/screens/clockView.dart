@@ -20,16 +20,32 @@ class _ClockViewState extends State<ClockView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300.0,
-      height: 300.0,
-      // color: Colors.redAccent,
-      child: Transform.rotate(
-        angle: -pi / 2,
-        child: CustomPaint(
-          painter: ClockPainter(),
+
+        // color: Colors.redAccent,
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      //  Center(child: Padding(
+      //   padding: const EdgeInsets.all(8.0),
+      //   child: Text("Clock App",style:TextStyle(color:Colors.white,fontSize:30.0),),
+      // )),
+    
+      Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 200.0,
+              height: 200.0,
+              child: Transform.rotate(
+                angle: -pi / 2,
+                child: CustomPaint(
+                  painter: ClockPainter(),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
-    );
+    ]));
   }
 }
 
@@ -43,9 +59,8 @@ class ClockPainter extends CustomPainter {
     double radius = min(centerX, centerY);
 
     var fillBrush = Paint()
-    // ..color = Color(0xFF444974);
-    ..color = Color(0xFF2D2F41);
-
+      // ..color = Color(0xFF444974);
+      ..color = Color(0xFF2D2F41);
 
     var outlineBrush = Paint()
       // ..color = Color(0xFFe0e0e0)
@@ -76,10 +91,10 @@ class ClockPainter extends CustomPainter {
       ..strokeWidth = 8;
 
     var dashBrush = Paint()
-    ..color = Color(0xFFEAECFF)
-    ..style = PaintingStyle.stroke
-    ..strokeCap = StrokeCap.round
-    ..strokeWidth = 2;
+      ..color = Color(0xFFEAECFF)
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 2;
 
     canvas.drawCircle(center, radius - 40, fillBrush);
     canvas.drawCircle(center, radius - 40, outlineBrush);
@@ -102,6 +117,7 @@ class ClockPainter extends CustomPainter {
 
     var outerCircleRadius = radius;
     var innerCircleRadius = radius - 14;
+    
     for (double i = 0; i < 360; i += 12) {
       var x1 = centerX + outerCircleRadius * cos(i * pi / 180);
       var y1 = centerX + outerCircleRadius * sin(i * pi / 180);
@@ -109,6 +125,8 @@ class ClockPainter extends CustomPainter {
       var x2 = centerX + innerCircleRadius * cos(i * pi / 180);
       var y2 = centerX + innerCircleRadius * sin(i * pi / 180);
       canvas.drawLine(Offset(x1, y1), Offset(x2, y2), dashBrush);
+    
+      
     }
   }
 
