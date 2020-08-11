@@ -19,82 +19,86 @@ class _ClockViewState extends State<ClockView> {
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
     return Container(
-
         // color: Colors.redAccent,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center, 
-        children: [
-          
-          Expanded(
-            child:Container(
-              child:Stack(
-                children: [
-                      // Expanded(
-                      //   child:
-                        //  Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                            Center(
-                              child: Container(
-                                width: 250.0,
-                                height: 250.0,
-                                child: Transform.rotate(
-                                  angle: -pi / 2,
-                                  child: CustomPaint(
-                                    painter: ClockPainter(),
-                                  ),
-                                ),
-                              ),
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Expanded(
+          child: Container(
+            child: Stack(
+              children: [
+                Center(
+                  child: Container(
+                    width: 250.0,
+                    height: 250.0,
+                    child: Transform.rotate(
+                      angle: -pi / 2,
+                      child: CustomPaint(
+                        painter: ClockPainter(),
+                      ),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    width: 330.0,
+                    height: 330.0,
+                    // color: Colors.blueAccent,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("12",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.w600,
+                                )),
+                          ],
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("9",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 30.0,
+                                      fontWeight: FontWeight.w600,
+                                    )),
+                                Text("3",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 30.0,
+                                      fontWeight: FontWeight.w600,
+                                    )),
+                              ],
                             ),
-                        //   ],
-                        // ),
-                      // ),
-                      Center(
-                        child: Container(
-                          width:330.0,
-                          height:330.0,
-                          // color:Colors.blueAccent,
-                          child:Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("12",style:TextStyle(color:Colors.white,fontSize:30.0,fontWeight:FontWeight.w600,)),
-                                ],
-                              ),
-                              Expanded(
-                              child: Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("9",style:TextStyle(color:Colors.white,fontSize:30.0,fontWeight:FontWeight.w600,)),
-                                      Text("3",style:TextStyle(color:Colors.white,fontSize:30.0,fontWeight:FontWeight.w600,)),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("6",style:TextStyle(color:Colors.white,fontSize:30.0,fontWeight:FontWeight.w600,)),
-                                ],
-                              ),
-                            ],
                           ),
                         ),
-                      ),
-                    
-                   
-
-
-                ],
-              ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("6",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.w600,
+                                )),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          )
-        
-        ]
-     )
+          ),
+        )
+      ]
+    )
     );
   }
 }
@@ -167,20 +171,18 @@ class ClockPainter extends CustomPainter {
 
     var outerCircleRadius = radius;
     var innerCircleRadius = radius - 14;
-    
-    for (double i =0; i < 360; i += 8) {
+
+    for (double i = 0; i < 360; i += 8) {
       var x1 = centerX + outerCircleRadius * cos(i * pi / 180);
       var y1 = centerX + outerCircleRadius * sin(i * pi / 180);
 
       var x2 = centerX + innerCircleRadius * cos(i * pi / 180);
       var y2 = centerX + innerCircleRadius * sin(i * pi / 180);
-      
-      if(i==270){
 
-      }else{
+      if (i == 270) {
+      } else {
         canvas.drawLine(Offset(x1, y1), Offset(x2, y2), dashBrush);
       }
-    
     }
   }
 
